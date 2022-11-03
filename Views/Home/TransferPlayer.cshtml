@@ -1,0 +1,57 @@
+﻿@model Exercices07.Models.Entities.Player
+
+@{
+    ViewData["Title"] = "TransferPlayer";
+}
+
+<h1>Transfert du joueur @Model.FirstName - @Model.LastName</h1>
+
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="TransferPlayerSubmit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Id" />
+            <div class="form-group">
+                <label asp-for="FirstName" class="control-label"></label>
+                <input asp-for="FirstName" class="form-control" readonly/>
+                <span asp-validation-for="FirstName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="LastName" class="control-label"></label>
+                <input asp-for="LastName" class="form-control" readonly />
+                <span asp-validation-for="LastName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="DateOfBirth" class="control-label"></label>
+                <input asp-for="DateOfBirth" class="form-control" readonly />
+                <span asp-validation-for="DateOfBirth" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label class="control-label">Équipe source : @Model.Team?.Name</label>
+            </div
+            <div class="form-group">
+                <label class="control-label">Équipe destination :</label>
+                <select name="TeamDestinationId" class="form-control">
+                    @foreach (var item in ViewBag.teams)
+                    {
+                        if(item.Id != @Model.Team?.Id){
+                            <option value="@item.Id">@item.Name</option>
+                        }
+                    }
+                </select>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

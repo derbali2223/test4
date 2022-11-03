@@ -1,0 +1,45 @@
+﻿@model IEnumerable<Exercices07.Models.Entities.Team>
+
+@{
+    ViewData["Title"] = "TeamsBySport";
+}
+
+<h1>Liste des équipes de @ViewBag.sport.Name</h1>
+
+<p>
+    <a asp-action="CreateTeam" asp-route-id="@ViewBag.sport.Id">Ajouter une équipe</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FoundingDate)
+            </th>
+            <th>
+                
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FoundingDate)
+            </td>
+            <td>
+                    <a asp-action="PlayersByTeam" asp-route-id="@item.Id"><span class="badge bg-warning">@item.Players?.Count joueurs</span></a>
+            </td>
+            <td>
+                    <a asp-action="TrophiesWonByTeam" asp-route-id="@item.Id"><span class="badge bg-secondary">@item.Trophies?.Count trophées</span></a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

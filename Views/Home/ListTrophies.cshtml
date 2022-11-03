@@ -1,0 +1,41 @@
+﻿@model IEnumerable<string>
+
+<form asp-action="WinningTeamsOfTrophy" method="post">
+    <label for="name">Choisir un trophée</label>
+    <select name="name">
+        @foreach (var trophy in Model)
+        {
+            <option value="@trophy">@trophy</option>
+        }
+    </select>
+    <input class="btn btn-success" type="submit" value="Chercher" />
+</form>
+
+<!--Une liste de toutes les équipes gagnantes du trophée choisi-->
+@if(ViewBag.Teams != null) {
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Name
+            </th>
+            <th>
+               Year of trophy
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (KeyValuePair<int, string> item in ViewBag.Teams)
+        {
+                <tr>
+                    <td>
+                        @item.Value
+                    </td>
+                    <td>
+                       @item.Key
+                    </td>
+            </tr>
+        }
+    </tbody>
+</table>
+}

@@ -1,0 +1,37 @@
+﻿@model IEnumerable<Exercices07.Models.Entities.Sport>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+
+<p>
+    <a asp-action="ListTrophies">Liste des trophées</a>
+</p>
+<br />
+
+<h1>Liste des sports</h1>
+
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                    <a asp-action="TeamsBySport" asp-route-id="@item.Id"><span class="badge bg-primary">@item.Teams?.Count équipes</span> </a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
